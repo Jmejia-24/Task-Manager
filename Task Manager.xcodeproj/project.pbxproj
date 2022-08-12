@@ -13,6 +13,8 @@
 		3B808CD128A6F691006D7C85 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B808CD028A6F691006D7C85 /* Preview Assets.xcassets */; };
 		3B808CD328A6F691006D7C85 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B808CD228A6F691006D7C85 /* Persistence.swift */; };
 		3B808CD628A6F691006D7C85 /* Task_Manager.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3B808CD428A6F691006D7C85 /* Task_Manager.xcdatamodeld */; };
+		3B808CDF28A6FA48006D7C85 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B808CDE28A6FA48006D7C85 /* Home.swift */; };
+		3B808CE128A6FEA6006D7C85 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B808CE028A6FEA6006D7C85 /* TaskViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +25,8 @@
 		3B808CD028A6F691006D7C85 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3B808CD228A6F691006D7C85 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		3B808CD528A6F691006D7C85 /* Task_Manager.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Task_Manager.xcdatamodel; sourceTree = "<group>"; };
+		3B808CDE28A6FA48006D7C85 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		3B808CE028A6FEA6006D7C85 /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +59,8 @@
 		3B808CC828A6F68F006D7C85 /* Task Manager */ = {
 			isa = PBXGroup;
 			children = (
+				3B808CDD28A6FA38006D7C85 /* ViewModel */,
+				3B808CDC28A6FA2E006D7C85 /* View */,
 				3B808CC928A6F68F006D7C85 /* Task_ManagerApp.swift */,
 				3B808CCB28A6F68F006D7C85 /* ContentView.swift */,
 				3B808CCD28A6F691006D7C85 /* Assets.xcassets */,
@@ -71,6 +77,22 @@
 				3B808CD028A6F691006D7C85 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		3B808CDC28A6FA2E006D7C85 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3B808CDE28A6FA48006D7C85 /* Home.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3B808CDD28A6FA38006D7C85 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				3B808CE028A6FEA6006D7C85 /* TaskViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,7 +166,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B808CD328A6F691006D7C85 /* Persistence.swift in Sources */,
+				3B808CE128A6FEA6006D7C85 /* TaskViewModel.swift in Sources */,
 				3B808CCC28A6F68F006D7C85 /* ContentView.swift in Sources */,
+				3B808CDF28A6FA48006D7C85 /* Home.swift in Sources */,
 				3B808CD628A6F691006D7C85 /* Task_Manager.xcdatamodeld in Sources */,
 				3B808CCA28A6F68F006D7C85 /* Task_ManagerApp.swift in Sources */,
 			);
