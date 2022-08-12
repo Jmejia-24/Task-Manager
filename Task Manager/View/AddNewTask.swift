@@ -10,6 +10,7 @@ import SwiftUI
 struct AddNewTask: View {
     @EnvironmentObject var taskViewModel: TaskViewModel
     @Environment(\.self) var env
+    @Namespace var animation
     
     var body: some View {
         VStack(spacing: 12) {
@@ -112,6 +113,7 @@ struct AddNewTask: View {
                                 if taskViewModel.taskType == type {
                                     Capsule()
                                         .fill(.black)
+                                        .matchedGeometryEffect(id: "TYPE", in: animation)
                                 } else {
                                     Capsule()
                                         .strokeBorder(.black)
@@ -127,6 +129,29 @@ struct AddNewTask: View {
                 }
                 .padding(.top, 8)
             }
+            .padding(.vertical, 10)
+            
+            Divider()
+            
+            // MARK: Save Button
+            Button {
+                
+            } label: {
+                Text("Save Task")
+                    .font(.callout)
+                    .fontWeight(.semibold)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 12)
+                    .foregroundColor(.white)
+                    .background {
+                        Capsule()
+                            .fill(.black)
+                    }
+            }
+            .frame(maxHeight: .infinity, alignment: .bottom)
+            .padding(.bottom, 10)
+            .disabled(taskViewModel.taskTitle.isEmpty)
+            .opacity(taskViewModel.taskTitle.isEmpty ? 0.6 : 1)
         }
         .frame(maxHeight: .infinity, alignment: .top)
         .padding()
