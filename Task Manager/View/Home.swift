@@ -28,6 +28,34 @@ struct Home: View {
             }
             .padding()
         }
+        .overlay(alignment: .bottom) {
+            Button {
+                
+            } label: {
+                Label {
+                    Text("Add Task")
+                        .font(.callout)
+                        .fontWeight(.semibold)
+                } icon: {
+                    Image(systemName: "plus.app.fill")
+                }
+                .foregroundColor(.white)
+                .padding(.vertical, 12)
+                .padding(.horizontal)
+                .background(.black, in: Capsule())
+            }
+            .padding(.top, 10)
+            .frame(maxWidth: .infinity)
+            .background {
+                LinearGradient(colors: [
+                    .white.opacity(0.05),
+                    .white.opacity(0.4),
+                    .white.opacity(0.7),
+                    .white
+                ], startPoint: .top, endPoint: .bottom)
+                    .ignoresSafeArea()
+            }
+        }
     }
     
     @ViewBuilder func CustomSegmentedBar() -> some View {
