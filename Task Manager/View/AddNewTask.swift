@@ -73,7 +73,7 @@ struct AddNewTask: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .overlay(alignment: .bottomTrailing) {
                 Button {
-                    
+                    taskViewModel.showDatePicker.toggle()
                 } label: {
                     Image(systemName: "calendar")
                         .foregroundColor(.black)
@@ -135,7 +135,10 @@ struct AddNewTask: View {
             
             // MARK: Save Button
             Button {
-                
+                // MARK: If Success Closing View
+                if taskViewModel.addTask(context: env.managedObjectContext) {
+                    env.dismiss()
+                }
             } label: {
                 Text("Save Task")
                     .font(.callout)
@@ -155,6 +158,26 @@ struct AddNewTask: View {
         }
         .frame(maxHeight: .infinity, alignment: .top)
         .padding()
+        .overlay {
+            ZStack {
+                if taskViewModel.showDatePicker {
+                    Rectangle()
+                        .fill(.ultraThinMaterial)
+                        .ignoresSafeArea()
+                        .onTapGesture {
+                            taskViewModel.showDatePicker = false
+                        }
+                    
+                    DatePicker.init("", selection: $taskViewModel.taskDeadline, in: Date.now...Date.distantFuture)
+                        .datePickerStyle(.graphical)
+                        .labelsHidden()
+                        .padding()
+                        .background(.white, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                        .padding()
+                }
+            }
+            .animation(.easeInOut, value: taskViewModel.showDatePicker)
+        }
     }
 }
 
