@@ -25,6 +25,7 @@ class TaskViewModel: ObservableObject {
         task.color = taskColor
         task.deadline = taskDeadline
         task.type = taskType
+        task.isCompleted = false
         
         if let _ = try? context.save() {
             return true
