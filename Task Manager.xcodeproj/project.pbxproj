@@ -16,6 +16,7 @@
 		3B808CDF28A6FA48006D7C85 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B808CDE28A6FA48006D7C85 /* Home.swift */; };
 		3B808CE128A6FEA6006D7C85 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B808CE028A6FEA6006D7C85 /* TaskViewModel.swift */; };
 		3B808CE328A705F0006D7C85 /* AddNewTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B808CE228A705F0006D7C85 /* AddNewTask.swift */; };
+		3B808CE528A7F61D006D7C85 /* DynamicFilteredView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B808CE428A7F61D006D7C85 /* DynamicFilteredView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		3B808CDE28A6FA48006D7C85 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		3B808CE028A6FEA6006D7C85 /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
 		3B808CE228A705F0006D7C85 /* AddNewTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewTask.swift; sourceTree = "<group>"; };
+		3B808CE428A7F61D006D7C85 /* DynamicFilteredView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicFilteredView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +88,7 @@
 			children = (
 				3B808CDE28A6FA48006D7C85 /* Home.swift */,
 				3B808CE228A705F0006D7C85 /* AddNewTask.swift */,
+				3B808CE428A7F61D006D7C85 /* DynamicFilteredView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -171,6 +174,7 @@
 				3B808CD328A6F691006D7C85 /* Persistence.swift in Sources */,
 				3B808CE128A6FEA6006D7C85 /* TaskViewModel.swift in Sources */,
 				3B808CCC28A6F68F006D7C85 /* ContentView.swift in Sources */,
+				3B808CE528A7F61D006D7C85 /* DynamicFilteredView.swift in Sources */,
 				3B808CDF28A6FA48006D7C85 /* Home.swift in Sources */,
 				3B808CE328A705F0006D7C85 /* AddNewTask.swift in Sources */,
 				3B808CD628A6F691006D7C85 /* Task_Manager.xcdatamodeld in Sources */,

@@ -70,7 +70,7 @@ struct Home: View {
     
     @ViewBuilder func TaskView() -> some View {
         LazyVStack(spacing: 20) {
-            ForEach(tasks) { task in
+            DynamicFilteredView(currentTab: taskModel.currentTab) { (task: Task) in
                 TaskRowView(task: task)
             }
         }
