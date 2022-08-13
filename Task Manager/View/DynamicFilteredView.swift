@@ -27,8 +27,14 @@ struct DynamicFilteredView<Content: View, T>: View where T: NSManagedObject {
             let filterKey = "deadline"
             
             predicate = NSPredicate(format: "\(filterKey) >= %@ AND \(filterKey) < %@ AND isCompleted == %i", argumentArray: [today, tomorrow, 0])
-        } else {
+        } else if currentTab == "Failed" {
+            let today = calendar.startOfDay(for: Date())
+            let past = Date.distantPast
+            let filterKey = "deadline"
             
+            predicate = NSPredicate(format: "\(filterKey) >= %@ AND \(filterKey) < %@ AND isCompleted == %i", argumentArray: [past, today, 0])
+        } else {
+            predicate = NSPredicate(format: "isCompleted == %i", argumentArray: [1])
         }
         
         _request = FetchRequest(entity: T.entity(), sortDescriptors: [.init(keyPath: \Task.deadline, ascending: false)], predicate: predicate)
