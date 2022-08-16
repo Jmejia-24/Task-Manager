@@ -29,6 +29,8 @@ struct Home: View {
                 
                 CustomSegmentedBar()
                     .padding(.top, 5)
+                
+                TaskView()
             }
             .padding()
         }
