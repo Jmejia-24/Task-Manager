@@ -7,6 +7,13 @@
 
 import SwiftUI
 
+enum Tab: String, CaseIterable {
+    case today = "Today"
+    case upcoming = "Upcoming"
+    case donde = "Done"
+    case failed = "Failed"
+}
+
 struct Home: View {
     @StateObject var taskViewModel = TaskViewModel()
     @Namespace var animation
@@ -90,7 +97,7 @@ struct Home: View {
                 Spacer()
                 
                 // MARK: Edit Button Only for Non Completed Tasks
-                if !task.isCompleted && taskViewModel.currentTab != "Failed" {
+                if !task.isCompleted && taskViewModel.currentTab != .failed {
                     Button {
                         taskViewModel.editTask = task
                         taskViewModel.openEditTask = true
@@ -125,7 +132,7 @@ struct Home: View {
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 
-                if !task.isCompleted && taskViewModel.currentTab != "Failed"{
+                if !task.isCompleted && taskViewModel.currentTab != .failed {
                     Button {
                         // MARK: Upload Core Data
                         task.isCompleted.toggle()
@@ -148,10 +155,9 @@ struct Home: View {
     }
     
     @ViewBuilder func CustomSegmentedBar() -> some View {
-        let tabs = ["Today", "Upcoming", "Done", "Failed"]
         HStack(spacing: 10) {
-            ForEach(tabs, id: \.self) { tab in
-                Text(tab)
+            ForEach(Tab.allCases, id: \.self) { tab in
+                Text(tab.rawValue)
                     .font(.callout)
                     .fontWeight(.semibold)
                     .scaleEffect(0.9)

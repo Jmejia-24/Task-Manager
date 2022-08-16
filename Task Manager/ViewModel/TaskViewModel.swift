@@ -9,7 +9,7 @@ import SwiftUI
 import CoreData
 
 class TaskViewModel: ObservableObject {
-    @Published var currentTab: String = "Today"
+    @Published var currentTab: Tab = .today
     
     // MARK: New Task Properties
     @Published var openEditTask: Bool = false
