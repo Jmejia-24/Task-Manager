@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct Home: View {
-    @StateObject var taskModel: TaskViewModel = .init()
+    @StateObject var taskViewModel = TaskViewModel()
     @Namespace var animation
     
     @FetchRequest(entity: Task.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Task.deadline, ascending: false)], predicate: nil, animation: .easeInOut) var tasks: FetchedResults<Task>
@@ -16,15 +16,11 @@ struct Home: View {
     @Environment(\.self) var env
     
     var body: some View {
-        VStack {
-            VStack(alignment: .leading, spacing: 8) {
-                Text("Welcome Back")
-                    .font(.callout)
-                Text("Here's Update Today")
-                    .font(.title2.bold())
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.vertical)
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Welcome Back")
+                .font(.callout)
+            Text("Here's Update Today")
+                .font(.title2.bold())
             
             CustomSegmentedBar()
                 .padding(.top, 5)
@@ -34,7 +30,7 @@ struct Home: View {
             }
             .overlay(alignment: .bottom) {
                 Button {
-                    taskModel.openEditTask.toggle()
+                    taskViewModel.openEditTask.toggle()
                 } label: {
                     Label {
                         Text("Add Task")
@@ -61,18 +57,18 @@ struct Home: View {
                 }
             }
         }
+        .frame(maxWidth: .infinity)
         .padding(.horizontal)
-        .fullScreenCover(isPresented: $taskModel.openEditTask) {
-            taskModel.resetTaskData()
+        .fullScreenCover(isPresented: $taskViewModel.openEditTask) {
+            taskViewModel.resetTaskData()
         } content: {
-            AddNewTask()
-                .environmentObject(taskModel)
+            AddNewTask(taskViewModel: taskViewModel)
         }
     }
     
     @ViewBuilder func TaskView() -> some View {
         LazyVStack(spacing: 20) {
-            DynamicFilteredView(currentTab: taskModel.currentTab) { (task: Task) in
+            DynamicFilteredView(currentTab: taskViewModel.currentTab) { (task: Task) in
                 TaskRowView(task: task)
             }
         }
@@ -94,11 +90,11 @@ struct Home: View {
                 Spacer()
                 
                 // MARK: Edit Button Only for Non Completed Tasks
-                if !task.isCompleted && taskModel.currentTab != "Failed" {
+                if !task.isCompleted && taskViewModel.currentTab != "Failed" {
                     Button {
-                        taskModel.editTask = task
-                        taskModel.openEditTask = true
-                        taskModel.setupTask()
+                        taskViewModel.editTask = task
+                        taskViewModel.openEditTask = true
+                        taskViewModel.setupTask()
                     } label: {
                         Image(systemName: "square.and.pencil")
                             .foregroundColor(.black)
@@ -116,26 +112,26 @@ struct Home: View {
                     Label {
                         Text((task.deadline ?? Date()).formatted(date: .long, time: .omitted))
                     } icon: {
-                         Image(systemName: "calendar")
+                        Image(systemName: "calendar")
                     }
                     .font(.caption)
                     
                     Label {
                         Text((task.deadline ?? Date()).formatted(date: .omitted, time: .shortened))
                     } icon: {
-                         Image(systemName: "clock")
+                        Image(systemName: "clock")
                     }
                     .font(.caption)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 
-                if !task.isCompleted && taskModel.currentTab != "Failed"{
+                if !task.isCompleted && taskViewModel.currentTab != "Failed"{
                     Button {
                         // MARK: Upload Core Data
                         task.isCompleted.toggle()
                         try? env.managedObjectContext.save()
                     } label: {
-                         Circle()
+                        Circle()
                             .strokeBorder(.black, lineWidth: 1.5)
                             .frame(width: 25, height: 25)
                             .contentShape(Circle())
@@ -159,11 +155,11 @@ struct Home: View {
                     .font(.callout)
                     .fontWeight(.semibold)
                     .scaleEffect(0.9)
-                    .foregroundColor(taskModel.currentTab == tab ? .white : .black)
+                    .foregroundColor(taskViewModel.currentTab == tab ? .white : .black)
                     .padding(.vertical, 6)
                     .frame(maxWidth: .infinity)
                     .background {
-                        if taskModel.currentTab == tab {
+                        if taskViewModel.currentTab == tab {
                             Capsule()
                                 .fill()
                                 .matchedGeometryEffect(id: "TAB", in: animation)
@@ -172,7 +168,7 @@ struct Home: View {
                     .contentShape(Capsule())
                     .onTapGesture {
                         withAnimation {
-                            taskModel.currentTab = tab
+                            taskViewModel.currentTab = tab
                         }
                     }
             }
