@@ -16,52 +16,52 @@ struct Home: View {
     @Environment(\.self) var env
     
     var body: some View {
-        ScrollView(.vertical, showsIndicators:  false) {
-            VStack {
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Welcome Back")
-                        .font(.callout)
-                    Text("Here's Update Today")
-                        .font(.title2.bold())
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.vertical)
-                
-                CustomSegmentedBar()
-                    .padding(.top, 5)
-                
+        VStack {
+            VStack(alignment: .leading, spacing: 8) {
+                Text("Welcome Back")
+                    .font(.callout)
+                Text("Here's Update Today")
+                    .font(.title2.bold())
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.vertical)
+            
+            CustomSegmentedBar()
+                .padding(.top, 5)
+            
+            ScrollView(.vertical, showsIndicators:  false) {
                 TaskView()
             }
-            .padding()
-        }
-        .overlay(alignment: .bottom) {
-            Button {
-                taskModel.openEditTask.toggle()
-            } label: {
-                Label {
-                    Text("Add Task")
-                        .font(.callout)
-                        .fontWeight(.semibold)
-                } icon: {
-                    Image(systemName: "plus.app.fill")
+            .overlay(alignment: .bottom) {
+                Button {
+                    taskModel.openEditTask.toggle()
+                } label: {
+                    Label {
+                        Text("Add Task")
+                            .font(.callout)
+                            .fontWeight(.semibold)
+                    } icon: {
+                        Image(systemName: "plus.app.fill")
+                    }
+                    .foregroundColor(.white)
+                    .padding(.vertical, 12)
+                    .padding(.horizontal)
+                    .background(.black, in: Capsule())
                 }
-                .foregroundColor(.white)
-                .padding(.vertical, 12)
-                .padding(.horizontal)
-                .background(.black, in: Capsule())
-            }
-            .padding(.top, 10)
-            .frame(maxWidth: .infinity)
-            .background {
-                LinearGradient(colors: [
-                    .white.opacity(0.05),
-                    .white.opacity(0.4),
-                    .white.opacity(0.7),
-                    .white
-                ], startPoint: .top, endPoint: .bottom)
-                    .ignoresSafeArea()
+                .padding(.top, 10)
+                .frame(maxWidth: .infinity)
+                .background {
+                    LinearGradient(colors: [
+                        .white.opacity(0.05),
+                        .white.opacity(0.4),
+                        .white.opacity(0.7),
+                        .white
+                    ], startPoint: .top, endPoint: .bottom)
+                        .ignoresSafeArea()
+                }
             }
         }
+        .padding(.horizontal)
         .fullScreenCover(isPresented: $taskModel.openEditTask) {
             taskModel.resetTaskData()
         } content: {
