@@ -16,7 +16,7 @@ class TaskViewModel: ObservableObject {
     @Published var taskTitle: String = ""
     @Published var taskColor: String = CustomColor.yellow.rawValue
     @Published var taskDeadline: Date = Date()
-    @Published var taskType: String = "Basic"
+    @Published var taskType: String = TaskType.basic.rawValue
     @Published var showDatePicker: Bool = false
     @Published var editTask: Task?
     
@@ -42,7 +42,7 @@ class TaskViewModel: ObservableObject {
     
     // MARK: Resetting Data
     func resetTaskData() {
-        taskType = "Basic"
+        taskType = TaskType.basic.rawValue
         taskColor = CustomColor.yellow.rawValue
         taskTitle = ""
         taskDeadline = Date()
@@ -50,8 +50,8 @@ class TaskViewModel: ObservableObject {
     
     func setupTask() {
         if let editTask = editTask {
-            taskType = editTask.type ?? "Basic"
-            taskColor = editTask.color ?? "Yellow"
+            taskType = editTask.type ?? TaskType.basic.rawValue
+            taskColor = editTask.color ?? CustomColor.yellow.rawValue
             taskTitle = editTask.title ?? ""
             taskDeadline = editTask.deadline ?? Date()
         }

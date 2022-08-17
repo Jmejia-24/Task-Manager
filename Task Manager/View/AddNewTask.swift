@@ -16,6 +16,12 @@ enum CustomColor: String, CaseIterable {
     case orange = "Orange"
 }
 
+enum TaskType: String, CaseIterable {
+    case basic = "Basic"
+    case urgent = "Urgent"
+    case important = "Important"
+}
+
 struct AddNewTask: View {
     @ObservedObject var taskViewModel: TaskViewModel
     @Environment(\.self) var env
@@ -117,21 +123,20 @@ struct AddNewTask: View {
             Divider()
             
             // MARK: Sample Task Types
-            let taskTypes = ["Basic", "Urgent", "Important"]
             VStack(alignment: .leading, spacing: 12) {
                 Text("Task Type")
                     .font(.caption)
                     .foregroundColor(.gray)
                 
                 HStack(spacing: 12) {
-                    ForEach(taskTypes, id: \.self) { type in
-                        Text(type)
+                    ForEach(TaskType.allCases, id: \.self) { type in
+                        Text(type.rawValue)
                             .font(.callout)
                             .padding(.vertical, 8)
                             .frame(maxWidth: .infinity)
-                            .foregroundColor(taskViewModel.taskType == type ? .white : .black)
+                            .foregroundColor(taskViewModel.taskType == type.rawValue ? .white : .black)
                             .background {
-                                if taskViewModel.taskType == type {
+                                if taskViewModel.taskType == type.rawValue {
                                     Capsule()
                                         .fill(.black)
                                         .matchedGeometryEffect(id: "TYPE", in: animation)
@@ -143,61 +148,61 @@ struct AddNewTask: View {
                             .contentShape(Capsule())
                             .onTapGesture {
                                 withAnimation {
-                                    taskViewModel.taskType = type
+                                    taskViewModel.taskType = type.rawValue
                                 }
                             }
                     }
+                    .padding(.top, 8)
                 }
-                .padding(.top, 8)
-            }
-            .padding(.vertical, 10)
-            
-            Divider()
-            
-            // MARK: Save Button
-            Button {
-                // MARK: If Success Closing View
-                if taskViewModel.addTask(context: env.managedObjectContext) {
-                    env.dismiss()
-                }
-            } label: {
-                Text("Save Task")
-                    .font(.callout)
-                    .fontWeight(.semibold)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 12)
-                    .foregroundColor(.white)
-                    .background {
-                        Capsule()
-                            .fill(.black)
+                .padding(.vertical, 10)
+                
+                Divider()
+                
+                // MARK: Save Button
+                Button {
+                    // MARK: If Success Closing View
+                    if taskViewModel.addTask(context: env.managedObjectContext) {
+                        env.dismiss()
                     }
-            }
-            .frame(maxHeight: .infinity, alignment: .bottom)
-            .padding(.bottom, 10)
-            .disabled(taskViewModel.taskTitle.isEmpty)
-            .opacity(taskViewModel.taskTitle.isEmpty ? 0.6 : 1)
-        }
-        .frame(maxHeight: .infinity, alignment: .top)
-        .padding()
-        .overlay {
-            ZStack {
-                if taskViewModel.showDatePicker {
-                    Rectangle()
-                        .fill(.ultraThinMaterial)
-                        .ignoresSafeArea()
-                        .onTapGesture {
-                            taskViewModel.showDatePicker = false
+                } label: {
+                    Text("Save Task")
+                        .font(.callout)
+                        .fontWeight(.semibold)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 12)
+                        .foregroundColor(.white)
+                        .background {
+                            Capsule()
+                                .fill(.black)
                         }
-                    
-                    DatePicker.init("", selection: $taskViewModel.taskDeadline, in: Date.now...Date.distantFuture)
-                        .datePickerStyle(.graphical)
-                        .labelsHidden()
-                        .padding()
-                        .background(.white, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
-                        .padding()
                 }
+                .frame(maxHeight: .infinity, alignment: .bottom)
+                .padding(.bottom, 10)
+                .disabled(taskViewModel.taskTitle.isEmpty)
+                .opacity(taskViewModel.taskTitle.isEmpty ? 0.6 : 1)
             }
-            .animation(.easeInOut, value: taskViewModel.showDatePicker)
+            .frame(maxHeight: .infinity, alignment: .top)
+            .padding()
+            .overlay {
+                ZStack {
+                    if taskViewModel.showDatePicker {
+                        Rectangle()
+                            .fill(.ultraThinMaterial)
+                            .ignoresSafeArea()
+                            .onTapGesture {
+                                taskViewModel.showDatePicker = false
+                            }
+                        
+                        DatePicker.init("", selection: $taskViewModel.taskDeadline, in: Date.now...Date.distantFuture)
+                            .datePickerStyle(.graphical)
+                            .labelsHidden()
+                            .padding()
+                            .background(.white, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                            .padding()
+                    }
+                }
+                .animation(.easeInOut, value: taskViewModel.showDatePicker)
+            }
         }
     }
 }
