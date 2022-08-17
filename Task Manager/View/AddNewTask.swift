@@ -7,6 +7,15 @@
 
 import SwiftUI
 
+enum CustomColor: String, CaseIterable {
+    case yellow = "Yellow"
+    case green = "Green"
+    case blue = "Blue"
+    case purple = "Purple"
+    case red = "Red"
+    case orange = "Orange"
+}
+
 struct AddNewTask: View {
     @ObservedObject var taskViewModel: TaskViewModel
     @Environment(\.self) var env
@@ -46,15 +55,13 @@ struct AddNewTask: View {
                     .font(.caption)
                     .foregroundColor(.gray)
                 
-                let colors = ["Yellow", "Green", "Blue", "Purple", "Red", "Orange"]
-                
                 HStack(spacing: 15) {
-                    ForEach(colors, id: \.self) { color in
+                    ForEach(CustomColor.allCases, id: \.self) { color in
                         Circle()
-                            .fill(Color(color))
+                            .fill(Color(color.rawValue))
                             .frame(width: 25, height: 25)
                             .background {
-                                if taskViewModel.taskColor == color {
+                                if taskViewModel.taskColor == color.rawValue {
                                     Circle()
                                         .strokeBorder(.gray)
                                         .padding(-3)
@@ -62,7 +69,7 @@ struct AddNewTask: View {
                             }
                             .contentShape(Circle())
                             .onTapGesture {
-                                taskViewModel.taskColor = color
+                                taskViewModel.taskColor = color.rawValue
                             }
                     }
                 }
